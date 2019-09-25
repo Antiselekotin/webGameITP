@@ -1,59 +1,57 @@
  
 
 
-  let page = document.querySelectorAll(".button"),
-    counter = 1,
-    arr1 = [],
-    arr2 = [];
-  let answer = quantity();
- let event = setInterval(ignition, 600)
+  const page = document.querySelectorAll(".button");
+  let counter = 1;
+  const arr1 = [];
+  const arr2 = [];
+  const answer = quantity();
+  const event = setInterval(ignition, 600);
+  for (let i = 0; i < page.length; i++) {
+    page[i].onclick = function(){
+        arr2.push(i)
+      page[i].style.backgroundColor = "blue"
+      checking(arr1, arr2)
+      }
+    }
 
 
 function keys () {
-  let num = Math.round(Math.random() * 25);
-  return(num);
+  const num = Math.round(Math.random() * 25);
+  return num;
 }
 function quantity () {
-  let ans;
+  let answer;
   for (let i = 0; i < 1; i++) {
-   ans = prompt("Какой уровень сложности вы выбераете? (ввести цифру, max = 24)", "");
-   if ( Boolean(ans/2) == false || ans > 24) {
+   answer = +prompt("Какой уровень сложности вы выбераете? (ввести цифру, max = 24)", "");
+   if ( Boolean(answer/2) == false || answer > 24 || answer < 0) {
       i--}
-    }return(ans)
+    } return answer;
 }
 function ignition () {
-if (counter >= answer){
+if (counter == answer){
     clearInterval(event)
 }
     counter++;
-    let x = keys()
+    let x = keys();
     arr1.push(x)
 page[x].style.backgroundColor = "blue";
-setTimeout(function(){
+setTimeout ( function(){
 page[x].style.backgroundColor = "#E6E6FA";
 }, 500);
 }
-function checking (arr1, arr2){
-  if(arr1.length < arr2.length){
-    alert("I'm sorry but you are loh ebaliy")
-  }else{
-  let arraySum1 = arr1.reduce(function(x, y){
-    return x + y;
-}, 0);
-let arraySum2 = arr2.reduce(function(x, y){
-  return x + y;
-}, 0)
-if(arraySum1 === arraySum2){
-  alert("CONGRATULATION!!!! YOU ARE WINNER!!!!")
-}}
+function checking (arr1, arr2) {
+  arr1.sort();
+  arr2.sort();
+  if (arr1.length < arr2.length) {
+    alert ('I\'m sorry but you are loser')
+  } else if (JSON.stringify(arr2) === JSON.stringify(arr1)) {
+      alert ('CONGRATULATION!!!! YOU ARE WINNER!!!!')
+  }
 }
 
 
-page[0].onclick = function(){
-    arr2.push(0)
-  page[0].style.backgroundColor = "blue"
-  checking(arr1, arr2)
-  }
+/*
    page[1].onclick = function(){
     arr2.push(1)
     page[1].style.backgroundColor = "blue"
@@ -173,4 +171,4 @@ page[0].onclick = function(){
     arr2.push(24)
     page[24].style.backgroundColor = "blue"
     checking(arr1, arr2) 
-   }
+   }*/
